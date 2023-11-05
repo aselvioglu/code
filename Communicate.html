@@ -89,6 +89,25 @@
     .section-link.red-outline {
       border: 1px solid #c52323;
     }
+    .main-content {
+      text-align: center;
+    }
+
+    .message-box {
+      width: 100%;
+      max-width: 400px; /* Adjust the maximum width as needed */
+      height: 300px; /* Adjust the height as needed */
+      margin: 0 auto;
+    }
+    .chat-box {
+      width: 100%;
+      max-width: 600px; /* Adjust the maximum width as needed */
+      margin: 0 auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      height: 400px; /* Adjust the height as needed */
+      overflow-y: scroll;
+    }
   </style>
 </head>
 <body>
@@ -124,13 +143,28 @@
   </header>
 
   <main class="main container">
-    <section class="row my-5 text-center">
-      <div class="col-md-12 section d-flex align-items-center">
-        <div>
-          <h2 class="mt-3">Text to others</h2>
-          <p>Design topics, tools, courses, and paths for learners of all ages and levels. </p>
-         
+   
+      <!-- Modify the existing content within the main section to add a member communication section -->
+      <section class="row my-5 text-center">
+        <div class="col-md-12 main-content">
+          <h2 class="mt-3">Member Communication</h2>
+          <div class="chat-box">
+            <!-- Display chat messages here (messages from members) -->
+            <div><strong>Member 1:</strong> Hello, how can I help?</div>
+            <div><strong>You:</strong> I have a question about a course.</div>
+            <div><strong>Member 2:</strong> I can assist you with that.</div>
+            <!-- Continue adding more chat messages as needed -->
+          </div>
+          <form method="post" action="send_message_process.php">
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea class="form-control message-box" id="message" name="message" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
         </div>
+      </section>
+  
      
       </div>
     </section>
