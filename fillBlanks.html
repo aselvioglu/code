@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fill-in-the-blanks Question Generator</title>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 5px 10px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Fill-in-the-blanks Question Generator</h2>
+
+    <form id="questionForm">
+      <div class="form-group">
+        <label for="questionText">Enter the question text:</label>
+        <textarea id="questionText" rows="5"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="phrases">Enter the phrases to replace with blanks (separate by commas):</label>
+        <input type="text" id="phrases" placeholder="phrase1, phrase2, ..." />
+      </div>
+
+      <div class="form-group">
+        <label for="answers">Enter the correct answers (separate by commas):</label>
+        <input type="text" id="answers" placeholder="answer1, answer2, ..." />
+      </div>
+
+      <button type="button" onclick="generateQuestion()">Generate Question</button>
+    </form>
+
+    <div id="generatedQuestion"></div>
+  </div>
+
+  <script>
+    function generateQuestion() {
+      const questionText = document.getElementById('questionText').value;
+      const phrases = document.getElementById('phrases').value.split(',');
+      const answers = document.getElementById('answers').value.split(',');
+
+      const questionElement = createFillInTheBlanksQuestion(questionText, phrases, answers);
+      document.getElementById('generatedQuestion').innerHTML = questionElement;
+    }
+  </script>
+</body>
+</html>

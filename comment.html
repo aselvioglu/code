@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Add some styles for the comment form/modal */
+    #commentModal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      z-index: 1000;
+    }
+
+    .comment {
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      padding: 5px;
+      margin-bottom: 5px;
+    }
+  </style>
+  <title>Your Educational Website</title>
+</head>
+<body>
+  <header>
+    <!-- Your navigation bar with the comment button -->
+    <nav>
+      <button id="commentButton">Comment</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Your educational content -->
+    <article id="educationalContent">
+      <p>This is some educational content that users can comment on.</p>
+      <!-- Add more content as needed -->
+    </article>
+  </main>
+
+  <!-- Comment form/modal -->
+  <div id="commentModal">
+    <label for="commentText">Your Comment:</label>
+    <textarea id="commentText" rows="4" cols="50"></textarea>
+    <button id="submitComment">Submit</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Get necessary elements
+      const commentButton = document.getElementById('commentButton');
+      const commentModal = document.getElementById('commentModal');
+      const submitCommentButton = document.getElementById('submitComment');
+      const educationalContent = document.getElementById('educationalContent');
+
+      // Show the comment form/modal
+      commentButton.addEventListener('click', function () {
+        commentModal.style.display = 'block';
+      });
+
+      // Handle submitting a comment
+      submitCommentButton.addEventListener('click', function () {
+        // Get the selected text
+        const selectedText = getSelectedText();
+
+        // Get the comment text
+        const commentText = document.getElementById('commentText').value;
+
+        // Display the comment
+        if (selectedText && commentText) {
+          displayComment(selectedText, commentText);
+        }
+
+        // Clear the comment form
+        document.getElementById('commentText').value = '';
+
+        // Hide the comment form/modal
+        commentModal.style.display = 'none';
+      });
+
+      // Function to get the selected text
+      function getSelectedText() {
+        if (window.getSelection) {
+          return window.getSelection().toString();
+        } else if (document.selection && document.selection.type !== 'Control') {
+          return document.selection.createRange().text;
+        }
+        return '';
+      }
+
+      // Function to display a comment
+      function displayComment(selectedText, commentText) {
+        const commentDiv = document.createElement('div');
+        commentDiv.classList.add('comment');
+        commentDiv.innerHTML = `<strong>${selectedText}:</strong> ${commentText}`;
+        educationalContent.appendChild(commentDiv);
+      }
+    });
+  </script>
+</body>
+</html>

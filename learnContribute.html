@@ -21,10 +21,20 @@
       z-index: 1000;
       transition: 0.3s;
     }
+    .side-menu {
+  width: 200px;
+  padding: 20px;
+  background-color: #f0f0f0;
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;
+}
 
     .main {
-      background-color: #d8d8cf;
+      background-color: #ccccc9;
       padding-top: 80px;
+      margin-left: 220px;
+      width: 100%;
     }
 
     .footer {
@@ -90,6 +100,8 @@
       border: 1px solid #c52323;
     }
   </style>
+
+  
 </head>
 <body>
   <header class="header container-fluid">
@@ -132,40 +144,146 @@
     </nav>
   </header>
 
-  <main class="main container">
-    <section class="row my-5 text-center">
-      <div class="col-md-12 section d-flex align-items-center">
-        <div>
-          <h2 class="mt-3">Design Educational Materials</h2>
-          <p>Design topics, tools, courses, and paths for learners of all ages and levels. </p>
-          <a class="btn btn-primary section-link red-outline" href="login.html">Start to Design</a>
-        </div>
-        <img class="image" src="images/Blogpost-E-Learnings-1024x576.webp" alt="Image 1">
-      </div>
-    </section>
 
-    <section class="row my-5 text-center">
-      <div class="col-md-12 section d-flex align-items-center">
-        <div>
-          <h2 class="mt-3">Create Educational Materials from Your Designs</h2>
-          <p>Use designed contents (yours and others') to create and share educational material.</p>
-          <a class="btn btn-primary section-link red-outline" href="login.html">Start to Create</a>
-        </div>
-        <img class="image" src="images/stack-books-open-book-reading-learning-education-concept-free-copy-space-145486777.webp" alt="Image 2">
-      </div>
-    </section>
+  <!-- Inside the <body> tag, before the <header> -->
+<aside class="side-menu">
+  <h3>Menu</h3>
+  <ul>
+    <li><a href="#topics">Topics</a></li>
+    <li><a href="#modules">Modules</a></li>
+    <li><a href="#courses">Courses</a></li>
+    <li><a href="#paths">Paths</a></li>
+    
+  </ul>
+  <!-- Add a search form -->
+  <form id="searchForm">
+    <input type="text" id="searchInput" placeholder="Search...">
+    <button type="button" onclick="searchDatabase()">Search</button>
+  </form>
+</aside>
 
-    <section class="row my-5 text-center">
-      <div class="col-md-12 section d-flex align-items-center">
-        <div>
-          <h2 class="mt-3">Learn / Teach</h2>
-          <p>Discover learning resources and review the contents to teach for enhancing your educational journey.</p>
-          <a class="btn btn-primary section-link red-outline" href="login.html">Start to Explore</a>
-        </div>
-        <img class="image" src="images/teach_learn.jpg" alt="Image 3">
-      </div>
-    </section>
-  </main>
+
+<main class="main container">
+  <!-- Inside each section, replace the placeholder content with your actual content -->
+<!-- Topics Section -->
+<section id="topics" class="row my-5 text-center">
+  <div class="col-md-12 section d-flex align-items-center">
+    <div>
+      <h2 class="mt-3">Topics</h2>
+      <p>Explore various topics for your educational journey. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <ul>
+        <li>Topic 1</li>
+        <li>Topic 2</li>
+        <li>Topic 3</li>
+      </ul>
+    </div>
+    <img class="image" src="images/topics-image.jpg" alt="Topics Image">
+  </div>
+</section>
+
+<!-- Modules Section -->
+<section id="modules" class="row my-5 text-center">
+  <div class="col-md-12 section d-flex align-items-center">
+    <div>
+      <h2 class="mt-3">Modules</h2>
+      <p>Discover educational modules to enhance your learning experience. Nulla facilisi. Vestibulum et nisi non quam euismod malesuada.</p>
+      <ul>
+        <li class="expandable" onclick="toggleContent(this)">Module 1
+          <ul class="content">
+            <li>Submodule 1</li>
+            <li>Submodule 2</li>
+            <li>Submodule 3</li>
+          </ul>
+        </li>
+        <li class="expandable" onclick="toggleContent(this)">Module 2
+          <ul class="content">
+            <li>Submodule 1</li>
+            <li>Submodule 2</li>
+            <li>Submodule 3</li>
+          </ul>
+        </li>
+        <li class="expandable" onclick="toggleContent(this)">Module 3
+          <ul class="content">
+            <li>Submodule 1</li>
+            <li>Submodule 2</li>
+            <li>Submodule 3</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <img class="image" src="images/modules-image.jpg" alt="Modules Image">
+  </div>
+</section>
+
+<!-- Courses Section -->
+<section id="courses" class="row my-5 text-center">
+  <div class="col-md-12 section d-flex align-items-center">
+    <div>
+      <h2 class="mt-3">Courses</h2>
+      <p>Enroll in courses tailored to your educational goals. Fusce accumsan neque id quam bibendum, eu cursus dolor pulvinar.</p>
+      <ul>
+        <li class="expandable" onclick="toggleContent(this)">Course 1
+          <ul class="content">
+            <li>Lesson 1</li>
+            <li>Lesson 2</li>
+            <li>Lesson 3</li>
+          </ul>
+        </li>
+        <li class="expandable" onclick="toggleContent(this)">Course 2
+          <ul class="content">
+            <li>Lesson 1</li>
+            <li>Lesson 2</li>
+            <li>Lesson 3</li>
+          </ul>
+        </li>
+        <li class="expandable" onclick="toggleContent(this)">Course 3
+          <ul class="content">
+            <li>Lesson 1</li>
+            <li>Lesson 2</li>
+            <li>Lesson 3</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <img class="image" src="images/courses-image.jpg" alt="Courses Image">
+  </div>
+</section>
+
+<!-- Paths Section -->
+<section id="paths" class="row my-5 text-center">
+  <div class="col-md-12 section d-flex align-items-center">
+    <div>
+      <h2 class="mt-3">Paths</h2>
+      <p>Explore educational paths to achieve mastery in specific subjects. Proin aliquam massa ut cursus tempus. Sed interdum arcu in risus venenatis, et cursus ex convallis.</p>
+      <ul>
+        <li class="expandable" onclick="toggleContent(this)">Path 1
+          <ul class="content">
+            <li>Step 1</li>
+            <li>Step 2</li>
+            <li>Step 3</li>
+          </ul>
+        </li>
+        <li class="expandable" onclick="toggleContent(this)">Path 2
+          <ul class="content">
+            <li>Step 1</li>
+            <li>Step 2</li>
+            <li>Step 3</li>
+          </ul>
+        </li>
+        <li class="expandable" onclick="toggleContent(this)">Path 3
+          <ul class="content">
+            <li>Step 1</li>
+            <li>Step 2</li>
+            <li>Step 3</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <img class="image" src="images/paths-image.jpg" alt="Paths Image">
+  </div>
+</section>
+
+</main>
   
   <footer class="footer container-fluid">
     <div class="text-center py-3">
@@ -183,6 +301,14 @@
         document.querySelector('.header').classList.remove('show');
       }
     };
-  </script>
+    
+
+
+  function toggleContent(element) {
+    const content = element.querySelector('.content');
+    content.classList.toggle('show');
+  }
+</script>
+ 
 </body>
 </html>
