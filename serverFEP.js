@@ -1,71 +1,98 @@
-const http = require('http');
-const fs = require('fs');
+const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
-const server = http.createServer((req, res) => {
-  let filePath = '';
+const app = express();
 
-  if (req.url === '/homepageFEP.html') {
-    filePath = path.join(__dirname, 'homepageFEP.html');
-  } else if (req.url === '/homePageMembers') {
-    filePath = path.join(__dirname, 'homePageFEPMembers.html');
-  } else if (req.url === '/signup.html') {
-    filePath = path.join(__dirname, 'signup.html');
-  }else if (req.url === '/login.html') {
-    filePath = path.join(__dirname, 'login.html');
-  }else if (req.url === '/learnContribute.html') {
-    filePath = path.join(__dirname, 'learnContribute.html');
-  }else if (req.url === '/howtoMembers.html') {
-    filePath = path.join(__dirname, 'howtoMembers.html');
-  }else if (req.url === '/Howto.html') {
-    filePath = path.join(__dirname, 'Howto.html');
-  }else if (req.url === '/forgetPassword.html') {
-    filePath = path.join(__dirname, 'forgetPassword.html');
-  }else if (req.url === '/design.html') {
-    filePath = path.join(__dirname, 'design.html');
-  }else if (req.url === '/dashboard.html') {
-    filePath = path.join(__dirname, 'dashboard.html');
-  }else if (req.url === '/create.html') {
-    filePath = path.join(__dirname, 'create.html');
-  }else if (req.url === '/Communicate.html') {
-    filePath = path.join(__dirname, 'Communicate.html');
-  }else if (req.url === '/communicateMembers.html') {
-    filePath = path.join(__dirname, 'communicateMembers.html');
-  }else if (req.url === '/About.html') {
-    filePath = path.join(__dirname, 'About.html');
-  }else if (req.url === '/comment.html') {
-    filePath = path.join(__dirname, 'comment.html');
-  }else if (req.url === '/aboutMembers.html') {
-    filePath = path.join(__dirname, 'aboutMembers.html');
-  } else {
-    // If the requested URL is not /nonmember, /member, or /signup.html, serve a 404 page
-    filePath = path.join(__dirname, '404.html');
-  }
+// Serve static files from the "public" directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Use body-parser middleware to parse form data
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+
+// MongoDB connection URI (replace with your actual MongoDB URI)
+const uri = 'mongodb+srv://aydinselvioglu:Zn19780323>@cluster0.ysvlpb7.mongodb.net/FEPProject';
+
+// Connect to MongoDB
+mongoose.connect(uri, {
   
-
-  // Read the HTML file and serve it as the response
-  fs.readFile(filePath, (err, data) => {
-    if (err) {
-      // If there's an error reading the file, serve a 500 error page
-      res.writeHead(500);
-      res.end('Server Error');
-    } else {
-      // Set the content type based on the file extension
-      const ext = path.extname(filePath);
-      let contentType = 'text/html';
-      if (ext === '.css') {
-        contentType = 'text/css';
-      }
-
-      // Set the appropriate content type header and serve the file data
-      res.writeHead(200, { 'Content-Type': contentType });
-      res.end(data);
-    }
-  });
+})
+.then(() => {
+  console.log('Connected to MongoDB');
+})
+.catch((error) => {
+  console.error('Error connecting to MongoDB:', error.message);
 });
 
-const PORT = process.env.PORT || 3000;
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+  console.log('Connected to MongoDB');
+});
 
-server.listen(PORT, () => {
+// Define a schema for the user model
+const userSchema = new mongoose.Schema({
+  name: String,
+  surname: String,
+  username: String,
+  password: String,
+  email: String,
+  designs: {
+    designId: Number,
+    designName: String,
+    designForm:Array
+
+
+  },
+  creations: {
+
+    creationId: Number,
+    creationName: String,
+    creationForm: Array
+
+  },
+  learnings: {
+    contentType: String,
+    contentId: String,
+    contentForm: Array,
+
+  },
+  messages: {
+    messageid: Number,
+    sender: String,
+    receiver: String,
+    messageText: String
+  },
+  grade: Number,
+});
+
+// Create a model based on the schema
+const User = mongoose.model('User', userSchema);
+
+// Route for handling form submissions
+app.post('/signup', async (req, res) => {
+  try {
+    // Extract form data from the request body
+    const { name, surname, username, password, email } = req.body;
+
+    // Create a new user instance
+    const newUser = new User({ name, surname, username, password, email });
+
+    // Save the new user to the database
+    await newUser.save();
+
+    res.send('User registered successfully');
+  } catch (error) {
+    res.status(500).send('Error registering user: ' + error.message);
+  }
+});
+
+
+// Start the server
+const PORT = process.env.PORT || 5500;
+app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
