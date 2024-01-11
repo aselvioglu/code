@@ -175,6 +175,19 @@
         document.querySelector('.header').classList.remove('show');
       }
     };
+    // JavaScript to redirect to homePageFEPMembers.html after successful login
+    document.addEventListener('DOMContentLoaded', function() {
+      // Find the login form
+      const loginForm = document.querySelector('form[action="/login"]');
+      // Attach a submit event listener to the form
+      loginForm.addEventListener('submit', function(event) {
+        // Prevent the default form submission behavior
+        event.preventDefault();
+        // Perform any necessary validation here...
+        // If the validation is successful, redirect to homePageFEPMembers.html
+        window.location.href = 'homePageFEPMembers.html';
+      });
+    });
   </script>
 </body>
 </html>
