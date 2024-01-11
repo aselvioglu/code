@@ -485,30 +485,36 @@ function addMCQ() {
 
   // Function to save the form data
   function saveForm() {
-    const formData = {
-      paragraphs: [],
-      mcq: [],
-      openEnded: document.getElementById('openEnded').value,
-      videos: [],
-      audios: document.getElementById('audios').value,
-      fillBlanks: [],
-    };
+  const formData = {
+    // Populate formData object with the form data you want to save
+    // Example:
+    title: document.getElementById('topicTitleInput').value,
+    // Add other form fields as needed
+  };
 
-    // Populate paragraph titles and content in formData
-    const formToolsContainer = document.getElementById('formToolsContainer');
-    const toolInputs = formToolsContainer.querySelectorAll('input[type="text"]');
-    const toolTextareas = formToolsContainer.querySelectorAll('textarea');
-
-    toolInputs.forEach((titleInput, index) => {
-      const title = titleInput.value;
-      const content = toolTextareas[index].value;
-      formData.paragraphs.push({ title, content });
+  // Send an HTTP POST request to the server
+  fetch('/save-form', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData),
+  })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Network response was not ok.');
+    })
+    .then(data => {
+      console.log('Form data saved successfully:', data);
+      // Handle success, e.g., display a success message to the user
+    })
+    .catch(error => {
+      console.error('Error saving form data:', error);
+      // Handle error, e.g., display an error message to the user
     });
-
-    // You can save formData to a database or use it as needed
-    console.log('Form Data:', formData);
-    alert('Form saved successfully!');
-  }
+}
 </script>
 </body>
 </html>

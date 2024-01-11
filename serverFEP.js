@@ -108,6 +108,29 @@ app.post('/login', (req, res) => {
   }
 });
 
+// Parse JSON bodies for POST requests
+app.use(bodyParser.json());
+
+// Define a route to handle form submissions
+app.post('/save-form', (req, res) => {
+  // Assuming you are using a MongoDB model called FormData
+  const FormData = require('./models/formData'); // Replace with your actual model import
+
+  // Create a new FormData document with the submitted data
+  const formData = new FormData(req.body);
+
+  // Save the formData document to the database
+  formData.save()
+    .then(savedFormData => {
+      console.log('Form data saved:', savedFormData);
+      res.status(200).json({ message: 'Form data saved successfully' });
+    })
+    .catch(error => {
+      console.error('Error saving form data:', error);
+      res.status(500).json({ error: 'An error occurred while saving form data' });
+    });
+});
+
 // Start the server
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
