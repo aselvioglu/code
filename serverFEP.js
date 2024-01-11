@@ -1,3 +1,4 @@
+
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -11,15 +12,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Use body-parser middleware to parse form data
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
-
 // MongoDB connection URI (replace with your actual MongoDB URI)
-const uri = 'mongodb+srv://aydinselvioglu:Zn19780323>@cluster0.ysvlpb7.mongodb.net/FEPProject';
+// MongoDB connection URI (replace with your actual MongoDB URI)
+const uri = process.env.MONGODB_URI || 'mongodb+srv://aydinselvioglu:hasanasim@cluster0.ysvlpb7.mongodb.net/FEPProject?retryWrites=true&w=majority';
 
 // Connect to MongoDB
-mongoose.connect(uri, {
-  
-})
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(() => {
   console.log('Connected to MongoDB');
 })
@@ -40,32 +38,35 @@ const userSchema = new mongoose.Schema({
   username: String,
   password: String,
   email: String,
-  designs: {
-    designId: Number,
-    designName: String,
-    designForm:Array
-
-
-  },
-  creations: {
-
-    creationId: Number,
-    creationName: String,
-    creationForm: Array
-
-  },
-  learnings: {
-    contentType: String,
-    contentId: String,
-    contentForm: Array,
-
-  },
-  messages: {
-    messageid: Number,
-    sender: String,
-    receiver: String,
-    messageText: String
-  },
+  designs: [
+    {
+      designId: Number,
+      designName: String,
+      designForm: Object,
+    },
+  ],
+  creations: [
+    {
+      creationId: Number,
+      creationName: String,
+      creationForm: Object,
+    },
+  ],
+  learnings: [
+    {
+      contentType: String,
+      contentId: String,
+      contentForm: Object,
+    },
+  ],
+  messages: [
+    {
+      messageid: Number,
+      sender: String,
+      receiver: String,
+      messageText: String,
+    },
+  ],
   grade: Number,
 });
 
@@ -90,9 +91,26 @@ app.post('/signup', async (req, res) => {
   }
 });
 
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+
+  // Here you would typically check the username and password against your database
+  // For demonstration purposes, let's assume a hardcoded username and password
+  const validUsername = 'sss';
+  const validPassword = 'aaa';  
+
+  if (username === validUsername && password === validPassword) {
+    // Redirect to the member homepage upon successful login
+    res.redirect('/homePageFEPMembers.html');
+
+  } else {
+    // If the credentials are invalid, render the login page again with an error message
+    res.send('Invalid username or password');
+  }
+});
 
 // Start the server
-const PORT = process.env.PORT || 5500;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
