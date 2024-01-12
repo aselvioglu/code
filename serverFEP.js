@@ -16,7 +16,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const uri = process.env.MONGODB_URI || 'mongodb+srv://aydinselvioglu:hasanasim@cluster0.ysvlpb7.mongodb.net/FEPProject?retryWrites=true&w=majority';
 
 // Connect to MongoDB
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+const options = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  dbName: 'FEPProject', // Set the default database to FEPProject
+  authSource: 'admin', // Specify the database where the user credentials are stored
+  user: 'aydinselvioglu', // Replace with your MongoDB username
+  pass: 'hasanasim', // Replace with your MongoDB password
+};
+
+// Connect to MongoDB
+mongoose.connect(uri, options)
 .then(() => {
   console.log('Connected to MongoDB');
 })
@@ -90,21 +100,23 @@ app.post('/signup', async (req, res) => {
   }
 });
 
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
-  // Here you would typically check the username and password against your database
-  // For demonstration purposes, let's assume a hardcoded username and password
-  const validUsername = 'sss';
-  const validPassword = 'aaa';  
+  try {
+    // Query the database to find a user with the provided username and password
+    const user = await User.findOne({ username, password }).exec();
 
-  if (username === validUsername && password === validPassword) {
-    // Redirect to the member homepage upon successful login
-    res.redirect('/homePageFEPMembers.html');
-
-  } else {
-    // If the credentials are invalid, render the login page again with an error message
-    res.send('Invalid username or password');
+    if (user) {
+      // If a user is found, redirect to the member homepage upon successful login
+      res.redirect('/homePageFEPMembers.html');
+    } else {
+      // If the credentials are invalid, render the login page again with an error message
+      res.send('Invalid username or password');
+    }
+  } catch (error) {
+    // Handle any errors that occur during the database query
+    res.status(500).send('An error occurred while processing your request');
   }
 });
 
