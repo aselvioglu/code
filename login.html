@@ -140,7 +140,7 @@
         <div class="login-form">
           <h2 class="mt-3">Log in</h2>
           <!-- Add your login form elements here (e.g., username and password fields) -->
-          <form method="post" action="/login">
+          <form method="post" action="login_process.php" id="loginForm">
             <!-- Add form fields here -->
             <div class="form-group">
               <label for="username">Username</label>
@@ -150,8 +150,9 @@
               <label for="password">Password</label>
               <input type="password" class="form-control row-my-3" id="password" name="password" required>
             </div>
+            <p id="errorMessage" style="color: red;"></p>
             <br>
-           <a href="homePageFEPMembers.html"><button type="submit" class="btn btn-primary">Log In</button></a> 
+            <button type="submit" class="btn btn-primary">Log In</button>
             <p>If you do not have an account, please <a href="signup.html">Sign Up!</a> || Forget your username or password? <a href="forgetPassword.html">Click!</a></p>
           </form>
         </div>
@@ -175,17 +176,31 @@
         document.querySelector('.header').classList.remove('show');
       }
     };
-    // JavaScript to redirect to homePageFEPMembers.html after successful login
-    document.addEventListener('DOMContentLoaded', function() {
-      // Find the login form
-      const loginForm = document.querySelector('form[action="/login"]');
-      // Attach a submit event listener to the form
-      loginForm.addEventListener('submit', function(event) {
-        // Prevent the default form submission behavior
+
+    // Add the login form JavaScript for redirection and error handling
+    document.addEventListener('DOMContentLoaded', function () {
+      // Get the login form
+      const loginForm = document.getElementById('loginForm');
+      // Get the error message element
+      const errorMessage = document.getElementById('errorMessage');
+
+      // Add a submit event listener to the form
+      loginForm.addEventListener('submit', function (event) {
+        // Prevent the default form submission
         event.preventDefault();
-        // Perform any necessary validation here...
-        // If the validation is successful, redirect to homePageFEPMembers.html
-        window.location.href = 'homePageFEPMembers.html';
+
+        // Perform your login process here (e.g., AJAX request to the server)
+
+        // Simulate a successful login for demonstration purposes
+        const loginSuccessful = true; // Change to true in actual implementation if login is successful
+
+        if (loginSuccessful) {
+          // Redirect to the main page after a successful login
+          window.location.href = 'create.html'; // Update with your actual main page URL
+        } else {
+          // Display an error message for unsuccessful login
+          errorMessage.textContent = 'Incorrect username or password. Please try again.';
+        }
       });
     });
   </script>
