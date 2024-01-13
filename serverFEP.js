@@ -17,14 +17,14 @@ const uri = process.env.MONGODB_URI || 'mongodb+srv://aydinselvioglu:hasanasim@c
 
 // Connect to MongoDB
 const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+  // Remove useNewUrlParser and useUnifiedTopology options
   dbName: 'FEPProject', // Set the default database to FEPProject
   authSource: 'admin', // Specify the database where the user credentials are stored
   user: 'aydinselvioglu', // Replace with your MongoDB username
   pass: 'hasanasim', // Replace with your MongoDB password
 };
 
+// Update the connection setup to use the new MongoDB Node.js Driver syntax
 mongoose.connect(uri, options)
   .then(() => {
     console.log('Connected to MongoDB');
@@ -38,13 +38,20 @@ mongoose.connect(uri, options)
     console.error('Error connecting to MongoDB:', error.message);
   });
 
+
 // Define a schema for the user model
 const userSchema = new mongoose.Schema({
+  userId: Number,
   name: String,
   surname: String,
   username: String,
   password: String,
   email: String,
+  subscribeDate: {
+    type: Date,
+    required: true,
+    default: Date.now
+  },
   designs: [
     {
       designId: Number,
@@ -81,22 +88,27 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 // Route for handling form submissions
+// Route for handling form submissions
 app.post('/signup', async (req, res) => {
   try {
     // Extract form data from the request body
     const { name, surname, username, password, email } = req.body;
+    console.log('Received form data:', req.body);
 
     // Create a new user instance
     const newUser = new User({ name, surname, username, password, email });
 
     // Save the new user to the database
-    await newUser.save();
+    const savedUser = await newUser.save();
+    console.log('User registered successfully:', savedUser);
 
     res.send('User registered successfully');
   } catch (error) {
+    console.error('Error registering user:', error);
     res.status(500).send('Error registering user: ' + error.message);
   }
 });
+
 
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
