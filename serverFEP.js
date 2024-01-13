@@ -16,16 +16,7 @@ app.use(bodyParser.json());
 const uri = process.env.MONGODB_URI || 'mongodb+srv://aydinselvioglu:hasanasim@cluster0.ysvlpb7.mongodb.net/FEPProject?retryWrites=true&w=majority';
 
 // Connect to MongoDB
-const options = {
-  // Remove useNewUrlParser and useUnifiedTopology options
-  dbName: 'FEPProject', // Set the default database to FEPProject
-  authSource: 'admin', // Specify the database where the user credentials are stored
-  user: 'aydinselvioglu', // Replace with your MongoDB username
-  pass: 'hasanasim', // Replace with your MongoDB password
-};
-
-// Update the connection setup to use the new MongoDB Node.js Driver syntax
-mongoose.connect(uri, options)
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, dbName: 'FEPProject', authSource: 'admin', user: 'aydinselvioglu', pass: 'hasanasim' })
   .then(() => {
     console.log('Connected to MongoDB');
     db = mongoose.connection;
@@ -44,9 +35,9 @@ const userSchema = new mongoose.Schema({
   userId: Number,
   name: String,
   surname: String,
-  username: String,
+  username: { type: String, unique: true },
   password: String,
-  email: String,
+  email: { type: String, unique: true },
   subscribeDate: {
     type: Date,
     required: true,
@@ -88,12 +79,18 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 // Route for handling form submissions
-// Route for handling form submissions
 app.post('/signup', async (req, res) => {
   try {
     // Extract form data from the request body
     const { name, surname, username, password, email } = req.body;
     console.log('Received form data:', req.body);
+
+    // Check if the username already exists in the database
+    const existingUser = await User.findOne({ username }).exec();
+    if (existingUser) {
+      res.status(400).json({ error: 'Username already exists' });
+      return;
+    }
 
     // Create a new user instance
     const newUser = new User({ name, surname, username, password, email });
@@ -102,14 +99,14 @@ app.post('/signup', async (req, res) => {
     const savedUser = await newUser.save();
     console.log('User registered successfully:', savedUser);
 
-    res.send('User registered successfully');
+    res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
     console.error('Error registering user:', error);
-    res.status(500).send('Error registering user: ' + error.message);
+    res.status(500).json({ error: 'An error occurred while registering the user' });
   }
 });
 
-
+// Route for handling login
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
@@ -122,11 +119,11 @@ app.post('/login', async (req, res) => {
       res.redirect('/homePageFEPMembers.html');
     } else {
       // If the credentials are invalid, render the login page again with an error message
-      res.send('Invalid username or password');
+      res.status(401).json({ error: 'Invalid username or password' });
     }
   } catch (error) {
     // Handle any errors that occur during the database query
-    res.status(500).send('An error occurred while processing your request');
+    res.status(500).json({ error: 'An error occurred while processing your request' });
   }
 });
 
