@@ -10,8 +10,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Use body-parser middleware to parse form data
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-// MongoDB connection URI (replace with your actual MongoDB URI)
 // MongoDB connection URI (replace with your actual MongoDB URI)
 const uri = process.env.MONGODB_URI || 'mongodb+srv://aydinselvioglu:hasanasim@cluster0.ysvlpb7.mongodb.net/FEPProject?retryWrites=true&w=majority';
 
@@ -25,20 +25,18 @@ const options = {
   pass: 'hasanasim', // Replace with your MongoDB password
 };
 
-// Connect to MongoDB
 mongoose.connect(uri, options)
-.then(() => {
-  console.log('Connected to MongoDB');
-})
-.catch((error) => {
-  console.error('Error connecting to MongoDB:', error.message);
-});
-
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', () => {
-  console.log('Connected to MongoDB');
-});
+  .then(() => {
+    console.log('Connected to MongoDB');
+    db = mongoose.connection;
+    db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+    db.once('open', () => {
+      console.log('Connected to MongoDB');
+    });
+  })
+  .catch((error) => {
+    console.error('Error connecting to MongoDB:', error.message);
+  });
 
 // Define a schema for the user model
 const userSchema = new mongoose.Schema({
@@ -119,9 +117,6 @@ app.post('/login', async (req, res) => {
     res.status(500).send('An error occurred while processing your request');
   }
 });
-
-// Parse JSON bodies for POST requests
-app.use(bodyParser.json());
 
 // Define a route to handle form submissions
 app.post('/save-form', (req, res) => {
