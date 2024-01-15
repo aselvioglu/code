@@ -13,22 +13,25 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // MongoDB connection URI (replace with your actual MongoDB URI)
-const uri = process.env.MONGODB_URI || 'mongodb+srv://aydinselvioglu:hasanasim@cluster0.ysvlpb7.mongodb.net/FEPProject?retryWrites=true&w=majority';
+const uri = process.env.MONGODB_URI || "mongodb+srv://aydinselvioglu:hasanasim@cluster0.ysvlpb7.mongodb.net/?retryWrites=true&w=majority";
 
 // Connect to MongoDB
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, dbName: 'FEPProject', authSource: 'admin', user: 'aydinselvioglu', pass: 'hasanasim' })
-  .then(() => {
-    console.log('Connected to MongoDB');
-    db = mongoose.connection;
-    db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-    db.once('open', () => {
-      console.log('Connected to MongoDB');
-    });
-  })
-  .catch((error) => {
-    console.error('Error connecting to MongoDB:', error.message);
-  });
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  dbName: 'FEPProject',
+  authSource: 'admin',
+  user: 'aydinselvioglu',
+  pass: 'hasanasim',
+  
+});
 
+// Set up event listeners for the MongoDB connection
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+  console.log('Connected to MongoDB');
+});
 
 // Define a schema for the user model
 const userSchema = new mongoose.Schema({
@@ -73,10 +76,11 @@ const userSchema = new mongoose.Schema({
     },
   ],
   grade: Number,
-});
+}, { collection: 'kullanici' }); // Specify the collection name
 
 // Create a model based on the schema
 const User = mongoose.model('User', userSchema);
+
 
 // Route for handling form submissions
 app.post('/signup', async (req, res) => {
@@ -91,7 +95,58 @@ app.post('/signup', async (req, res) => {
       res.status(400).json({ error: 'Username already exists' });
       return;
     }
+// Route to view all users (accessible to admin only)
+app.get('/admin/users', isAdmin, async (req, res) => {
+  try {
+    const users = await User.find().exec();
+    res.json(users);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ error: 'An error occurred while fetching users' });
+  }
+});
 
+// Route to update a user (accessible to admin only)
+app.put('/admin/users/:userId', isAdmin, async (req, res) => {
+  // Implement logic to update user
+});
+
+// Route to delete a user (accessible to admin only)
+app.delete('/admin/users/:userId', isAdmin, async (req, res) => {
+  // Implement logic to delete user
+});
+
+// Define a route to handle dashboard data requests
+app.get('/dashboard-data', async (req, res) => {
+  try {
+    // Assume you have a collection named 'dashboard' in your MongoDB database
+    const database = client.db('FEPProject');
+    const dashboardCollection = database.collection('kullanici');
+    // Query the dashboard collection to retrieve the data
+    const dashboardData = await dashboardCollection.findOne({}); // You may need to specify a query here
+    res.json(dashboardData);
+  } catch (error) {
+    console.error('Error fetching dashboard data:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Middleware to check if the user is an admin
+function isAdmin(req, res, next) {
+  // Implement logic to check if the user is an admin
+  // For example, you can check if the user has an 'isAdmin' flag in their user document
+  if (req.user && req.user.isAdmin) {
+    // User is an admin, proceed to the next middleware/route handler
+    next();
+  } else {
+    // User is not an admin, send a 403 Forbidden response
+    res.status(403).json({ error: 'Access denied. You are not authorized to perform this action.' });
+  }
+}
+// Example usage of isAdmin middleware in admin routes
+app.get('/admin/users', isAdmin, async (req, res) => {
+  // Logic to handle admin-only operation
+});
     // Create a new user instance
     const newUser = new User({ name, surname, username, password, email });
 

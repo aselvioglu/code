@@ -117,6 +117,26 @@
     .section-link.red-outline {
       border: 1px solid #c52323;
     }
+
+    #sidebar {
+  width: 200px;
+  height: 100%;
+  position: fixed;
+  top: 350px; /* Position 200px down from the top */
+  left: -100px; /* Half of the sidebar width */
+  transform: translateY(-50%);
+  background-color: #111;
+  padding-top: 20px;
+  transition: left 0.3s; /* Add smooth transition */
+}
+
+#sidebar.active {
+  left: 0; /* Displayed when active */
+}
+
+
+
+
   </style>
 </head>
 <body>
@@ -160,12 +180,15 @@
     </nav>
   </header>
  <!-- Side Navigation -->
-<div class="sidenav">
-  <a href="javascript:void(0);" onclick="showForm('Design a Topic')">Design a Topic</a>
-  <a href="javascript:void(0);" onclick="showForm('Design a Module')">Design a Module</a>
-  <a href="javascript:void(0);" onclick="showForm('Design a Course')">Design a Course</a>
-  <a href="javascript:void(0);" onclick="showForm('Design a Path')">Design a Path</a>
+ <div id="sidebar" class="sidenav">
+  <a href="#" onclick="showForm('Design a Topic')">Design a Topic</a>
+  <a href="#" onclick="showForm('Design a Module')">Design a Module</a>
+  <a href="#" onclick="showForm('Design a Course')">Design a Course</a>
+  <a href="#" onclick="showForm('Design a Path')">Design a Path</a>
 </div>
+
+
+
 
 
   <main class="main container">
@@ -207,38 +230,118 @@
                 <button type="button" class="btn btn-primary mt-3" onclick="saveForm()">Save Form</button>
               </form>
             </div>
-            
-            <!-- End of Education Form -->
-
-            <a class="btn btn-primary section-link red-outline" href="login.html">Start Designing</a>
-          </div>
+            </div>
         </div>
       </div>
       <!-- End of Education Content Form Section -->
 
       <div id="moduleForm" class="row my-5 text-center" style="display: none;">
-        <!-- ... (rest of your module form) ... -->
-      </div>
+        <div class="col-md-12 section d-flex align-items-center justify-content-center">
+          <div class="container">
+          <div>
+            <!-- Added input area for "Module Title -->
+            <label for="moduleTitleInput" class="form-label">Module Title:</label>
+            <input type="text" class="form-control" id="topicTitleInput" placeholder="Enter the module title" required>
 
-      <div id="courseForm" class="row my-5 text-center" style="display: none;">
-        <!-- ... (rest of your course form) ... -->
-      </div>
+            <h2 class="mt-3">Design Educational Content</h2>
+            <p>Create a template for educational content including topics</p>
+            
+            <!-- Your education form goes here -->
+            <div class="container mt-4">
+              <form id="educationForm">
+              <!-- Form Tools Container -->
+               <!-- ... (other form elements) ... -->
+              <!-- ... (other form elements) ... -->
+             
+              <button type="button" class="btn btn-success mt-2" onclick="addTopic()">Add Topic</button>
+              <div id="moduleFormToolsContainer" class="mt-3">
+                <!-- Form tools will be dynamically added here -->
+              </div>
+              <br>
+              <br>
 
-      <div id="pathForm" class="row my-5 text-center" style="display: none;">
-        <!-- ... (rest of your path form) ... -->
-      </div>
-    </div>
-    <!-- Your existing sections go here -->
-    <div id="topicForm1" class="row my-5 text-center">
-      <div class="col-md-12 section d-flex align-items-center">
-        <div>
-          <!-- Placeholder image and design prompt -->
-          <img src="placeholder-image.jpg" alt="Placeholder Image" style="max-width: 100%;">
-          <h2 class="mt-3">Design a Topic</h2>
-          <p>Click on the "Design a Topic" link to start designing your educational topic.</p>
+              <button type="button" class="btn btn-primary mt-3" onclick="saveModuleForm()">Save Form</button>
+
+              </form>
+            </div>
+            
+            
+          </div>
         </div>
       </div>
+
+    
+      <div id="courseForm" class="row my-5 text-center" style="display: none;">
+        <div class="col-md-12 section d-flex align-items-center justify-content-center">
+          <div class="container">
+            <div>
+              <!-- Added input area for "Course Title" -->
+              <label for="courseTitleInput" class="form-label">Form Title:</label>
+              <input type="text" class="form-control" id="courseTitleInput" placeholder="Enter the course title" required>
+      
+              <h2 class="mt-3">Design Educational Content</h2>
+              <p>Create a template for educational content including topics</p>
+              
+              <!-- Your education form goes here -->
+              <div class="container mt-4">
+                <form id="educationForm">
+                  <!-- Form Tools Container -->
+                  <!-- ... (other form elements) ... -->
+                  <!-- ... (other form elements) ... -->
+                
+                  <button type="button" class="btn btn-success mt-2" onclick="addModule()">Add Module</button>
+                  <div id="courseFormToolsContainer" class="mt-3">
+                    <!-- Form tools will be dynamically added here -->
+                  </div>
+                  <br>
+                  <br>
+      
+                  <button type="button" class="btn btn-primary mt-3" onclick="saveModuleForm()">Save Form</button>
+      
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+      <div id="pathForm" class="row my-5 text-center" style="display: none;">
+        <div class="col-md-12 section d-flex align-items-center justify-content-center">
+          <div class="container">
+          <div>
+            <!-- Added input area for "Module Title -->
+            <label for="pathTitleInput" class="form-label">Path Title:</label>
+            <input type="text" class="form-control" id="topicTitleInput" placeholder="Enter the path title" required>
+
+            <h2 class="mt-3">Design Educational Content</h2>
+            <p>Create a template for educational content including tourses</p>
+            
+            <!-- Your education form goes here -->
+            <div class="container mt-4">
+              <form id="educationForm">
+              <!-- Form Tools Container -->
+               <!-- ... (other form elements) ... -->
+              <!-- ... (other form elements) ... -->
+             
+              <button type="button" class="btn btn-success mt-2" onclick="addTopic()">Add Topic</button>
+              <div id="moduleFormToolsContainer" class="mt-3">
+                <!-- Form tools will be dynamically added here -->
+              </div>
+              <br>
+              <br>
+
+              <button type="button" class="btn btn-primary mt-3" onclick="saveModuleForm()">Save Form</button>
+
+              </form>
+            </div>
+            
+            
+          </div>
+      </div>
     </div>
+    
+   
   </main>
   
   <footer class="footer container-fluid">
@@ -284,35 +387,49 @@
           break;
       }
     }
-
-    // JavaScript for the Education Content Form goes here
-  document.addEventListener('DOMContentLoaded', function () {
-    showForm('Design a Topic'); // Show the initial content
-
-    // Function to show/hide forms based on the selected form type
     function showForm(formType) {
-      const formSections = ['moduleForm', 'courseForm', 'pathForm', 'topicForm1'];
+  // Hide all forms initially
+  document.getElementById('topicForm').style.display = 'none';
+  document.getElementById('moduleForm').style.display = 'none';
+  document.getElementById('courseForm').style.display = 'none';
+  document.getElementById('pathForm').style.display = 'none';
 
-      // Adjust formType to match the case in formSections
-      const adjustedFormType = formType.replace(/\s+/g, '').toLowerCase();
+  // Show the selected form
+  switch (formType) {
+    case 'Design a Topic':
+      document.getElementById('topicForm').style.display = 'block';
+      break;
+    case 'Design a Module':
+      document.getElementById('moduleForm').style.display = 'block';
+      break;
+    case 'Design a Course':
+      document.getElementById('courseForm').style.display = 'block';
+      break;
+    case 'Design a Path':
+      document.getElementById('pathForm').style.display = 'block';
+      break;
+    default:
+      // Handle unknown form types
+      break;
+  }
+}
 
-      // Hide all forms initially
-      formSections.forEach(section => {
-        document.getElementById(section).style.display = 'none';
-      });
+    
 
-      // Show the selected form
-      document.getElementById(adjustedFormType).style.display = 'block';
-    }
-
-    // Add click event listeners to the navigation links
-    document.querySelectorAll('.sidenav a').forEach(link => {
-      link.addEventListener('click', function () {
-        const formType = this.textContent.trim(); // Extract form type from link text
-        showForm(formType);
-      });
+   // JavaScript for the Education Content Form goes here
+document.addEventListener('DOMContentLoaded', function () {
+  // Add click event listeners to the navigation links
+  document.querySelectorAll('.sidenav a').forEach(link => {
+    link.addEventListener('click', function () {
+      const formType = this.textContent.trim(); // Extract form type from link text
+      showForm(formType);
     });
   });
+
+ 
+});
+
+ 
 
     function addFrame(element) {
       const frame = document.createElement('div');
@@ -514,6 +631,49 @@ function addMCQ() {
       console.error('Error saving form data:', error);
       // Handle error, e.g., display an error message to the user
     });
+}
+
+const sidebar = document.getElementById('sidebar');
+
+// Function to show the sidebar when the mouse is near it
+function showSidebar() {
+  sidebar.classList.add('active');
+}
+
+// Function to hide the sidebar when the mouse moves away
+function hideSidebar() {
+  sidebar.classList.remove('active');
+}
+
+// Event listeners to trigger the show/hide functions
+sidebar.addEventListener('mouseenter', showSidebar);
+sidebar.addEventListener('mouseleave', hideSidebar);
+
+// Function to add a new topic input field dynamically
+function addTopic() {
+  const moduleFormToolsContainer = document.getElementById('moduleFormToolsContainer');
+
+  // Create a new input element for the topic
+  const topicInput = document.createElement('input');
+  topicInput.type = 'text';
+  topicInput.className = 'form-control mt-2';
+  topicInput.placeholder = 'Enter a topic';
+
+  // Append the new topic input to the container
+  moduleFormToolsContainer.appendChild(topicInput);
+}
+// Function to add a new module input field dynamically
+function addModule() {
+  const courseFormToolsContainer = document.getElementById('courseFormToolsContainer');
+
+  // Create a new input element for the module
+  const moduleInput = document.createElement('input');
+  moduleInput.type = 'text';
+  moduleInput.className = 'form-control mt-2';
+  moduleInput.placeholder = 'Enter a module';
+
+  // Append the new module input to the container
+  courseFormToolsContainer.appendChild(moduleInput);
 }
 </script>
 </body>

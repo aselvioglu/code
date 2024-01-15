@@ -120,12 +120,12 @@
               <li class="nav-item">
                 <a class="nav-link" href="learnContribute.html" >Learn/Contribute |</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="adminPanel.html">User Management |</a>
-              </li>
             <li class="nav-item">
               <a class="nav-link" href="homepageFEP.html">Log Out |</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="adminPanel.html">User Management |</a>
+              </li>
             <li class="nav-item">
               <a class="nav-link" href="dashboard.html" >Dashboard</a>
             </li>
@@ -137,37 +137,14 @@
 
   <main class="main container">
     <section class="row my-5 text-center">
-      <div class="col-md-12 section d-flex align-items-center">
-        <div>
-          <h2 class="mt-3">Design Educational Materials</h2>
-          <p>Design topics, tools, courses, and paths for learners of all ages and levels. </p>
-          <a class="btn btn-primary section-link red-outline" href="login.html">Start to Design</a>
+        <div class="col-md-12 section">
+          <h2>User Management</h2>
+          <!-- Add forms or buttons for user management operations -->
+          <button id="viewUsersBtn" class="btn btn-primary">View Users</button>
+          <button id="updateUserBtn" class="btn btn-primary">Update User</button>
+          <button id="deleteUserBtn" class="btn btn-danger">Delete User</button>
         </div>
-        <img class="image" src="images/Blogpost-E-Learnings-1024x576.webp" alt="Image 1">
-      </div>
-    </section>
-
-    <section class="row my-5 text-center">
-      <div class="col-md-12 section d-flex align-items-center">
-        <div>
-          <h2 class="mt-3">Create Educational Materials from Your Designs</h2>
-          <p>Use designed contents (yours and others') to create and share educational material.</p>
-          <a class="btn btn-primary section-link red-outline" href="login.html">Start to Create</a>
-        </div>
-        <img class="image" src="images/stack-books-open-book-reading-learning-education-concept-free-copy-space-145486777.webp" alt="Image 2">
-      </div>
-    </section>
-
-    <section class="row my-5 text-center">
-      <div class="col-md-12 section d-flex align-items-center">
-        <div>
-          <h2 class="mt-3">Learn / Teach</h2>
-          <p>Discover learning resources and review the contents to teach for enhancing your educational journey.</p>
-          <a class="btn btn-primary section-link red-outline" href="login.html">Start to Explore</a>
-        </div>
-        <img class="image" src="images/teach_learn.jpg" alt="Image 3">
-      </div>
-    </section>
+      </section>
   </main>
   
   <footer class="footer container-fluid">
@@ -186,18 +163,6 @@
         document.querySelector('.header').classList.remove('show');
       }
     };
-    // Add event listeners for user management buttons
-    $('#viewUsersBtn').click(function() {
-      // Handle logic for viewing users
-    });
-
-    $('#updateUserBtn').click(function() {
-      // Handle logic for updating a user
-    });
-
-    $('#deleteUserBtn').click(function() {
-      // Handle logic for deleting a user
-    });
   </script>
 </body>
 </html>
