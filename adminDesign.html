@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Welcome to The Educational Material Design Portal. Create, design, and share educational materials for learners of all ages.">
+  <title>The Free Education Portal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <style>
+    /* Your custom CSS styles go here */
+    body {
+      background-color: #f2f2f2;
+    }
+
+    .header {
+      background-color: #d3d3c9;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      transition: 0.3s;
+    }
+
+    .main {
+      background-color: #d8d8cf;
+      padding-top: 80px;
+    }
+
+    .footer {
+      background-color: #e7e7e1;
+    }
+
+    .nav-link {
+      color: #3e3e3a;
+    }
+
+    .nav-link:hover,
+    .nav-link:active {
+      color: #676762;
+    }
+
+    .btn {
+      background-color: #52524e;
+      color: #fff;
+    }
+
+    .btn:hover,
+    .btn:active {
+      background-color: #7e7e7a;
+    }
+
+    h1,
+    h2 {
+      color: #525243;
+      text-align: center;
+    }
+
+    p {
+      color: #36362e;
+    }
+
+    a {
+      color: #9b9b6d;
+    }
+
+    a:hover,
+    a:active {
+      color: #616154;
+    }
+
+    .image {
+      width: 100%;
+      max-width: 60%; /* Set the maximum width to 40% of the container */
+      height: 200px; /* Maintain aspect ratio */
+      padding: 0%;
+      margin: 0; /* Remove margin */
+      margin-left: 20px;
+      
+    }
+
+    /* Custom styles for all sections */
+    .section {
+      background-color: #4ac24e;
+      padding: 10px;
+      color: #292626;
+    }
+
+    .section-link.red-outline {
+      border: 1px solid #c52323;
+    }
+  </style>
+</head>
+<body>
+  <header class="header container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="homePageAdmin.html">The Free Education Portal</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="adminAbout.html" >About the FEP</a>
+            </li>
+            <li>|</li><li>|</li>
+            <li class="nav-item">
+              <a class="nav-link" href="adminHowto.html" >How to Use</a>
+            </li>
+            <li>|</li><li>|</li>
+            <li class="nav-item">
+              <a class="nav-link" href="adminCommunicate.html" >Communicate|</a>
+            </li>
+            <li>|</li><li>|</li>
+            <li class="nav-item">
+                <a class="nav-link" href="adminDesign.html" >Design</a>
+              </li>
+              <li>|</li><li>|</li>
+              <li class="nav-item">
+                <a class="nav-link" href="adminCreate.html" >Create</a>
+              </li>
+              <li>|</li><li>|</li>
+              <li class="nav-item">
+                <a class="nav-link" href="adminLearn.html" >Learn/Contribute</a>
+              </li>
+              <li>|</li><li>|</li>
+              <li class="nav-item">
+                <a class="nav-link" href="adminPanel.html">User Management</a>
+              </li>
+              <li>|</li><li>|</li>
+            <li class="nav-item">
+              <a class="nav-link" href="homepageFEP.html">Log Out</a>
+            </li>
+            <li>|</li><li>|</li>
+            <li class="nav-item">
+              <a class="nav-link" href="adminDashboard.html" >Dashboard</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+ <!-- Side Navigation -->
+ <div id="sidebar" class="sidenav">
+    <a href="#" onclick="showForm('Design a Topic')">Design a Topic</a>
+    <a href="#" onclick="showForm('Design a Module')">Design a Module</a>
+    <a href="#" onclick="showForm('Design a Course')">Design a Course</a>
+    <a href="#" onclick="showForm('Design a Path')">Design a Path</a>
+  </div>
+  
+  
+    <main class="main container">
+      <div class="form-container">
+        <!-- Education Content Form Section -->
+        <div id="topicFormContainer" class="row my-5 text-center">
+          <form id="topicForm">
+          <div class="col-md-12 section d-flex align-items-center">
+            <div>
+              <!-- Added input area for "Topic Title" -->
+              <label for="topicTitleInput" class="form-label">Topic Title:</label>
+              <input type="text" class="form-control" id="topicTitleInput" placeholder="Enter the topic title" required>
+  
+              <h2 class="mt-3">Design Educational Content</h2>
+              <p>Create a template for educational content including paragraphs, multiple-choice questions, open-ended questions, videos, audios, etc.</p>
+              
+              <!-- Your education form goes here -->
+              <div class="container mt-4">
+             
+                  <!-- Tool Selection Dropdown -->
+                  <div class="form-group">
+                    <label for="toolSelection">Select a tool:</label>
+                    <select class="form-control" id="toolSelection">
+                      <option value="paragraph">Add Paragraph</option>
+                      <option value="mcq">Add MCQ</option>
+                      <option value="openEnded">Add Open-ended Question</option>
+                      <option value="video">Add Video</option>
+                      <option value="audio">Add Audio</option>
+                      <option value="fillBlanks">Add Fill in the Blanks</option>
+                    </select>
+                    <button type="button" class="btn btn-success mt-2" onclick="addSelectedTool()">Add Tool</button>
+                  </div>
+  
+                  <!-- Form Tools Container -->
+                  <div id="formToolsContainer" class="mt-3">
+                    <!-- Form tools will be dynamically added here -->
+                  </div>
+  
+                  <!-- Save Button -->
+                  <button type="button" class="btn btn-primary mt-3" onclick="saveForm()">Save Form</button>
+                </form>
+              </div>
+              </div>
+          </div>
+        </div>
+        <!-- End of Education Content Form Section -->
+  
+        <div id="moduleFormContainer" class="row my-5 text-center" style="display: none">
+           <form id="moduleForm">
+             <div class="col-md-12 section d-flex align-items-center justify-content-center">
+            <div class="container">
+            <div>
+              <!-- Added input area for "Module Title -->
+              <label for="moduleTitleInput" class="form-label">Module Title:</label>
+              <input type="text" class="form-control" id="topicTitleInput" placeholder="Enter the module title" required>
+  
+              <h2 class="mt-3">Design Educational Content</h2>
+              <p>Create a template for educational content including topics</p>
+              
+              <!-- Your education form goes here -->
+              <div class="container mt-4">
+               
+                <!-- Form Tools Container -->
+                 <!-- ... (other form elements) ... -->
+                <!-- ... (other form elements) ... -->
+               
+                <button type="button" class="btn btn-success mt-2" onclick="addTopic()">Add Topic</button>
+                <div id="moduleFormToolsContainer" class="mt-3">
+                  <!-- Form tools will be dynamically added here -->
+                </div>
+                <br>
+                <br>
+  
+                <button type="button" class="btn btn-primary mt-3" onclick="saveModuleForm()">Save Form</button>
+  
+                </form>
+              </div>
+               </div>
+          </div>
+        </div>
+  
+      
+        <div id="courseFormContainer" class="row my-5 text-center" style="display: none">
+         <form id="courseForm">
+          <div class="col-md-12 section d-flex align-items-center justify-content-center">
+            <div class="container">
+            <div>
+              <!-- Added input area for "Module Title -->
+              <label for="courseTitleInput" class="form-label">Course Title:</label>
+              <input type="text" class="form-control" id="courseTitleInput" placeholder="Enter the course title" required>
+  
+              <h2 class="mt-3">Design Educational Content</h2>
+              <p>Create a template for educational content including modules</p>
+              
+              <!-- Your education form goes here -->
+              <div class="container mt-4">
+                
+                <!-- Form Tools Container -->
+                 <!-- ... (other form elements) ... -->
+                <!-- ... (other form elements) ... -->
+               
+                <button type="button" class="btn btn-success mt-2" onclick="addTopic()">Add Module</button>
+                <div id="courseFormToolsContainer" class="mt-3">
+                  <!-- Form tools will be dynamically added here -->
+                </div>
+                <br>
+                <br>
+  
+                <button type="button" class="btn btn-primary mt-3" onclick="saveModuleForm()">Save Form</button>
+  
+                </form>
+              </div>
+               </div>
+          </div>
+        </div>
+  
+        
+        <div id="pathFormContainer" class="row my-5 text-center" style="display: none;">
+         <form id="pathForm">
+  
+        <div class="col-md-12 section d-flex align-items-center justify-content-center">
+            <div class="container">
+              <div>
+                <!-- Updated input area for "Path Title" -->
+                <label for="pathTitleInput" class="form-label">Path Title:</label>
+                <input type="text" class="form-control" id="pathTitleInput" placeholder="Enter the path title" required>
+        
+                <h2 class="mt-3">Design Educational Content</h2>
+                <p>Create a template for educational content including courses</p>
+        
+                <!-- Your education form goes here -->
+                <div class="container mt-4">
+                  
+                   <button type="button" class="btn btn-success mt-2" onclick="addCourse()">Add Course</button>
+                    <div id="pathFormToolsContainer" class="mt-3">
+                      <!-- Form tools will be dynamically added here -->
+                    </div>
+                    <br>
+                    <br>
+        
+                    <button type="button" class="btn btn-primary mt-3" onclick="savePathForm()">Save Form</button>
+        
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      
+     
+    </main>
+  
+  <footer class="footer container-fluid">
+    <div class="text-center py-3">
+      <p>&copy; 2023 The Free Education Portal. All rights reserved.</p>
+    </div>
+  </footer>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+  <script>
+    // JavaScript to show the header on scroll
+    window.onscroll = function() {
+      if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.querySelector('.header').classList.add('show');
+      } else {
+        document.querySelector('.header').classList.remove('show');
+      }
+    };
+    // Add event listeners for user management buttons
+    $('#viewUsersBtn').click(function() {
+      // Handle logic for viewing users
+    });
+
+    $('#updateUserBtn').click(function() {
+      // Handle logic for updating a user
+    });
+
+    $('#deleteUserBtn').click(function() {
+      // Handle logic for deleting a user
+    });
+
+     // JavaScript to show the header on scroll
+     window.onscroll = function() {
+      if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.querySelector('.header').classList.add('show');
+      } else {
+        document.querySelector('.header').classList.remove('show');
+      }
+    };
+
+    // Your JavaScript for the Education Content Form goes here
+    function addSelectedTool() {
+      const toolSelection = document.getElementById('toolSelection');
+      const selectedTool = toolSelection.value;
+
+      switch (selectedTool) {
+        case 'paragraph':
+          addParagraph();
+          break;
+        case 'mcq':
+          addMCQ();
+          break;
+        case 'openEnded':
+          addOpenEnded();
+          break;
+        case 'video':
+          addVideo();
+          break;
+        case 'audio':
+          addAudio();
+          break;
+        case 'fillBlanks':
+          addFillBlanks();
+          break;
+      }
+    }
+
+   // JavaScript for the Education Content Form goes here
+   document.addEventListener('DOMContentLoaded', function () {
+  // Add click event listeners to the navigation links
+  document.querySelectorAll('.sidenav a').forEach(link => {
+    link.addEventListener('click', function () {
+      const formType = this.textContent.trim(); // Extract form type from link text
+      showForm(formType);
+    });
+  });
+
+ 
+});
+
+    function showForm(formType) {
+  // Hide all forms initially
+ document.getElementById('topicFormContainer').style.display = 'none';
+ document.getElementById('moduleFormContainer').style.display = 'none';
+ document.getElementById('courseFormContainer').style.display = 'none';
+ document.getElementById('pathFormContainer').style.display = 'none';
+
+  // Show the selected form
+  switch (formType) {
+    case 'Design a Topic':
+      document.getElementById('topicFormContainer').style.display = 'block';
+      break;
+    case 'Design a Module':
+      document.getElementById('moduleFormContainer').style.display = 'block';
+      break;
+    case 'Design a Course':
+      document.getElementById('courseFormContainer').style.display = 'block';
+      break;
+    case 'Design a Path':
+      document.getElementById('pathFormContainer').style.display = 'block';
+      break;
+    default:
+      // Handle unknown form types
+      break;
+  }
+}
+
+    function addFrame(element) {
+      const frame = document.createElement('div');
+      frame.className = 'tool-frame';
+      frame.appendChild(element);
+      return frame;
+    }
+
+    // Function to add a new paragraph dynamically
+    function addParagraph() {
+      const paragraphsContainer = document.getElementById('formToolsContainer');
+
+      // Create title input
+      const titleInput = document.createElement('input');
+      titleInput.type = 'text';
+      titleInput.className = 'form-control mt-2';
+      titleInput.placeholder = 'Enter a title for the paragraph';
+
+      // Create paragraph textarea
+      const newParagraph = document.createElement('textarea');
+      newParagraph.className = 'form-control mt-2';
+      newParagraph.placeholder = 'Enter a new paragraph';
+
+      // Append title and paragraph to the container
+      paragraphsContainer.appendChild(titleInput);
+      paragraphsContainer.appendChild(newParagraph);
+    }
+
+    // Function to add a new video dynamically
+    function addVideo() {
+      const videosContainer = document.getElementById('formToolsContainer');
+
+      // Create title input
+      const titleInput = document.createElement('input');
+      titleInput.type = 'text';
+      titleInput.className = 'form-control mt-2';
+      titleInput.placeholder = 'Enter a title for the video';
+
+      // Create video input
+      const newVideo = document.createElement('input');
+      newVideo.type = 'text';
+      newVideo.className = 'form-control mt-2';
+      newVideo.placeholder = 'Enter video URL';
+
+      // Append title and video to the container
+      videosContainer.appendChild(titleInput);
+      videosContainer.appendChild(newVideo);
+    }
+  // Function to add a new fill-in-the-blanks question dynamically
+ // Function to add a new fill-in-the-blanks question dynamically
+    function addFillBlanks() {
+      const fillBlanksContainer = document.getElementById('formToolsContainer');
+
+      // Create title input
+      const titleInput = document.createElement('input');
+      titleInput.type = 'text';
+      titleInput.className = 'form-control mt-2';
+      titleInput.placeholder = 'Enter a title for the fill-in-the-blanks question';
+
+      // Create fill-in-the-blanks textarea
+      const newFillBlanks = document.createElement('textarea');
+      newFillBlanks.className = 'form-control mt-2';
+      newFillBlanks.placeholder = 'Enter a new fill-in-the-blanks question';
+
+      // Append title and fill-in-the-blanks to the container
+      fillBlanksContainer.appendChild(titleInput);
+      fillBlanksContainer.appendChild(newFillBlanks);
+    }
+// Updated function to add a new open-ended question dynamically
+    function addOpenEnded() {
+      const openEndedContainer = document.getElementById('formToolsContainer');
+
+      // Create title input
+      const titleInput = document.createElement('input');
+      titleInput.type = 'text';
+      titleInput.className = 'form-control mt-2';
+      titleInput.placeholder = 'Enter a title for the open-ended question';
+
+      // Create open-ended textarea
+      const newOpenEnded = document.createElement('textarea');
+      newOpenEnded.className = 'form-control mt-2';
+      newOpenEnded.placeholder = 'Enter a new open-ended question';
+
+      // Append title and open-ended question to the container with a frame
+      openEndedContainer.appendChild(addFrame(titleInput));
+      openEndedContainer.appendChild(addFrame(newOpenEnded));
+    }
+
+function addMCQ() {
+    // Prompt the user for the number of choices and the correct answer
+    const numChoices = prompt('Enter the number of choices for the MCQ:');
+
+    // Validate the input
+    if (!numChoices || isNaN(numChoices) || numChoices <= 0) {
+      alert('Invalid number of choices. Please enter a positive number.');
+      return;
+    }
+
+    const correctAnswer = prompt('Enter the correct answer (1 to ' + numChoices + '):');
+
+    // Validate the correct answer input
+    if (!correctAnswer || isNaN(correctAnswer) || correctAnswer < 1 || correctAnswer > numChoices) {
+      alert('Invalid correct answer. Please enter a valid choice number.');
+      return;
+    }
+
+    const mcqContainer = document.getElementById('formToolsContainer');
+
+    // Create title input
+    const titleInput = document.createElement('input');
+    titleInput.type = 'text';
+    titleInput.className = 'form-control mt-2';
+    titleInput.placeholder = 'Enter a title for the MCQ';
+
+    // Create MCQ div
+    const newMCQ = document.createElement('div');
+    newMCQ.className = 'form-control mt-2';
+
+    // Create MCQ question textarea
+    const questionInput = document.createElement('textarea');
+    questionInput.placeholder = 'Enter the MCQ question';
+    newMCQ.appendChild(questionInput);
+
+    // Create radio buttons and textareas for choices
+    for (let i = 1; i <= numChoices; i++) {
+      const choiceLabel = document.createElement('label');
+      choiceLabel.innerText = `Choice ${i}:`;
+
+      const choiceInput = document.createElement('input');
+      choiceInput.type = 'radio';
+      choiceInput.name = `mcqChoices${mcqContainer.children.length / 2}`;
+      choiceInput.value = `Choice ${i}`;
+      choiceInput.checked = i == correctAnswer;
+
+      const choiceTextarea = document.createElement('textarea');
+      choiceTextarea.className = 'form-control mt-2';
+      choiceTextarea.placeholder = `Enter choice ${i}`;
+
+      // Append elements to MCQ div
+      newMCQ.appendChild(choiceLabel);
+      newMCQ.appendChild(choiceInput);
+      newMCQ.appendChild(choiceTextarea);
+    }
+
+    // Append title and MCQ to the container
+    mcqContainer.appendChild(titleInput);
+    mcqContainer.appendChild(newMCQ);
+  }
+
+ // Updated function to add a new audio tool dynamically
+    function addAudio() {
+      const audiosContainer = document.getElementById('formToolsContainer');
+
+      // Create title input
+      const titleInput = document.createElement('input');
+      titleInput.type = 'text';
+      titleInput.className = 'form-control mt-2';
+      titleInput.placeholder = 'Enter a title for the audio';
+
+      // Create audio input
+      const newAudio = document.createElement('input');
+      newAudio.type = 'text';
+      newAudio.className = 'form-control mt-2';
+      newAudio.placeholder = 'Enter audio URL';
+
+      // Append title and audio to the container with a frame
+      audiosContainer.appendChild(addFrame(titleInput));
+      audiosContainer.appendChild(addFrame(newAudio));
+    }
+
+  function saveForm() {
+  const formData = {
+    topicTitle: document.getElementById('topicTitleInput').value,
+    moduleTitle: document.getElementById('moduleTitleInput').value,
+    courseTitle: document.getElementById('courseTitleInput').value,
+    formTitle: document.getElementById('pathTitleInput').value,
+    // Add other form fields as needed
+  };
+
+  fetch('/save-form', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData),
+  })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Network response was not ok.');
+    })
+    .then(data => {
+      console.log('Form data saved successfully:', data);
+      // Handle success, e.g., display a success message to the user
+    })
+    .catch(error => {
+      console.error('Error saving form data:', error);
+      // Handle error, e.g., display an error message to the user
+    });
+}
+
+const sidebar = document.getElementById('sidebar');
+
+// Function to show the sidebar when the mouse is near it
+function showSidebar() {
+  sidebar.classList.add('active');
+}
+
+// Function to hide the sidebar when the mouse moves away
+function hideSidebar() {
+  sidebar.classList.remove('active');
+}
+
+// Event listeners to trigger the show/hide functions
+sidebar.addEventListener('mouseenter', showSidebar);
+sidebar.addEventListener('mouseleave', hideSidebar);
+
+// Function to add a new topic input field dynamically
+function addTopic() {
+  const moduleFormToolsContainer = document.getElementById('moduleFormToolsContainer');
+
+  // Create a new input element for the topic
+  const topicInput = document.createElement('input');
+  topicInput.type = 'text';
+  topicInput.className = 'form-control mt-2';
+  topicInput.placeholder = 'Enter a topic';
+
+  // Append the new topic input to the container
+  moduleFormToolsContainer.appendChild(topicInput);
+}
+// Function to add a new module input field dynamically
+function addModule() {
+  const courseFormContainer = document.getElementById('courseFormContainer');
+   
+
+    // Create a new input element for the module
+    const moduleInput = document.createElement('input');
+    moduleInput.type = 'text';
+    moduleInput.className = 'form-control mt-2';
+    moduleInput.placeholder = 'Enter a module';
+
+    // Append the new module input to the container
+    courseFormToolsContainer.appendChild(moduleInput);
+  }
+
+  function addCourse() {
+    const pathFormContainer = document.getElementById('pathFormContainer');
+    
+
+    // Create a new input element for the course
+    const courseInput = document.createElement('input');
+    courseInput.type = 'text';
+    courseInput.className = 'form-control mt-2';
+    courseInput.placeholder = 'Enter a course';
+
+    // Append the new course input to the container
+    pathFormToolsContainer.appendChild(courseInput);
+  }
+  </script>
+</body>
+</html>

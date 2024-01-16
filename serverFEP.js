@@ -84,8 +84,6 @@ const User = mongoose.model('User', userSchema);
 
 const Message = mongoose.model('Message', { message: String });
 
-// Parse incoming requests with JSON payloads
-app.use(bodyParser.json());
 
 // Handle POST requests to /send-message
 app.post('/send-message', async (req, res) => {
@@ -104,6 +102,28 @@ app.post('/send-message', async (req, res) => {
     res.json({ success: true, message: 'Message sent successfully' });
   } catch (error) {
     // Send an error response if something goes wrong
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+app.post('/send-message', async (req, res) => {
+  try {
+    // Assuming the user is authenticated and their username is available in req.user.username
+    const senderUsername = req.user.username;
+    const receiverUsername = req.body.receiverUsername;
+    const message = req.body.message;
+
+    // Find the sender's user document in the database
+    const senderUser = await User.findOne({ username: senderUsername });
+
+    // Save the message to the sender's messages array
+    senderUser.messages.push({ sender: senderUsername, receiver: receiverUsername, message: message });
+
+    // Save the updated user document back to the database
+    await senderUser.save();
+
+    res.json({ success: true, message: 'Message sent successfully' });
+  } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 });
