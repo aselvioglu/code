@@ -135,6 +135,27 @@
   background-color: #040704; /* Change this to your preferred color */
   transition: width 0.5s;
 }
+/* Add styles for the fixed-size photo frame */
+.fixed-photo-frame {
+  width: 200px; /* Set the desired width */
+  height: 200px; /* Set the desired height */
+  overflow: hidden; /* Hide any overflow if the image is larger than the frame */
+  position: relative; /* Position for absolute button */
+}
+
+/* Style for the uploaded image */
+.fixed-photo-frame img {
+  width: 100%; /* Make the image fill the frame horizontally */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Style for the upload button */
+.add-photo-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+}
 
 
   </style>
@@ -185,9 +206,13 @@
       <div class="col-md-12 section d-flex align-items-center">
         <div class="user-profile">
           <div class="profile-image-container">
-            <img src="your-profile-image.jpg" alt="User Photo" class="profile-image">
-            <button class="btn btn-primary add-photo-btn">Add Photo</button>
+            <div class="fixed-photo-frame">
+              <img src="your-profile-image.jpg" alt="User Photo" class="profile-image">
+            </div>
+            <input type="file" id="photoUploadInput" style="display: none;">
+            <label for="photoUploadInput" class="btn btn-primary add-photo-btn">Upload Photo</label>
           </div>
+                   
           <h2 class="mt-3">Aydın Selvioğlu</h2>
           <p>Progress: 70%</p>
           <div class="progress-bar">
@@ -269,6 +294,36 @@ function updateDashboardUI(data) {
 
 // Call the function to fetch dashboard data when the page loads
 document.addEventListener('DOMContentLoaded', fetchDashboardData);
+
+document.getElementById('photoUploadInput').addEventListener('change', function(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      // Update the src attribute of the img element with the uploaded photo's data URL
+      document.querySelector('.profile-image').src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+});
+    fetch('/upload-photo', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to upload photo');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Handle the response from the server if needed
+      console.log('Photo uploaded successfully:', data);
+    })
+    .catch(error => {
+      console.error('Error uploading photo:', error);
+    });
+
   </script>
 </body>
 </html>

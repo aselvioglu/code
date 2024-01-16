@@ -35,52 +35,78 @@ db.once('open', () => {
 
 // Define a schema for the user model
 const userSchema = new mongoose.Schema({
-  userId: Number,
-  name: String,
-  surname: String,
-  username: { type: String, unique: true },
-  password: String,
-  email: { type: String, unique: true },
-  subscribeDate: {
-    type: Date,
-    required: true,
-    default: Date.now
+  "userId": Number,
+  "name": String,
+  "surname": String,
+  "username": { "type": String, "unique": true },
+  "password": String,
+  "email": { "type": "String", "unique": true },
+  "subscribeDate": {
+    "type": Date,
+    "required": true,
+    "default": Date.now
   },
-  designs: [
+  "designs": [
     {
-      designId: Number,
-      designName: String,
-      designForm: Object,
+      "designId": Number,
+      "designName": String,
+      "designForm": Object,
     },
   ],
-  creations: [
+  "creations": [
     {
-      creationId: Number,
-      creationName: String,
-      creationForm: Object,
+      "creationId": Number,
+      "creationName": String,
+      "creationForm": Object,
     },
   ],
-  learnings: [
+  "learnings": [
     {
-      contentType: String,
-      contentId: String,
-      contentForm: Object,
+      "contentType": String,
+      "contentId": String,
+      "contentForm": Object,
     },
   ],
-  messages: [
+  "messages": [
     {
-      messageid: Number,
-      sender: String,
-      receiver: String,
-      messageText: String,
+      "messageId": Number,
+      "senderUserName": String,
+      "messageText": String,
     },
   ],
-  grade: Number,
+  "grade": Number,
+  "photo": Object,
 }, { collection: 'kullanici' }); // Specify the collection name
 
 // Create a model based on the schema
 const User = mongoose.model('User', userSchema);
 
+
+const Message = mongoose.model('Message', { message: String });
+
+// Parse incoming requests with JSON payloads
+app.use(bodyParser.json());
+
+// Handle POST requests to /send-message
+app.post('/send-message', async (req, res) => {
+  try {
+    const { name, surname, email, message } = req.body;
+
+    // Validate the input (e.g., check for required fields)
+
+    // Create a new message document using the Message model
+    const newMessage = new Message({ name, surname, email, message });
+
+    // Save the message to the database
+    await newMessage.save();
+
+    // Send a success response
+    res.json({ success: true, message: 'Message sent successfully' });
+  } catch (error) {
+    // Send an error response if something goes wrong
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
 
 // Route for handling form submissions
 app.post('/signup', async (req, res) => {
