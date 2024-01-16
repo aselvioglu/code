@@ -207,6 +207,21 @@ app.get('/admin/users', isAdmin, async (req, res) => {
   }
 });
 
+
+// Route to fetch the first 10 messages with sender names and dates from the database
+router.get('/messages', async (req, res) => {
+  try {
+    const messages = await Message.find()
+      .sort({ createdAt: -1 }) // Sort messages by createdAt timestamp in descending order
+      .limit(10) // Limit to the first 10 messages
+      .populate('sender', 'name'); // Populate the 'sender' field with 'name' from the User model
+    res.json(messages);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch messages' });
+  }
+});
+
+
 // Route for handling login
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;

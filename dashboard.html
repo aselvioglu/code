@@ -221,7 +221,7 @@
         </div>
         </div>
    <hr>
-  
+   <div id="messageBox"></div>  
         <div class="user-content">
           <h3>Content Contributed</h3>
           <p>Your contributions and content details can go here.</p>
@@ -323,6 +323,39 @@ document.getElementById('photoUploadInput').addEventListener('change', function(
     .catch(error => {
       console.error('Error uploading photo:', error);
     });
+// Function to fetch the first 10 messages with sender names and dates from the server
+async function fetchMessages() {
+  try {
+    const response = await fetch('/messages'); // Assuming this route is defined in your Express app
+    if (!response.ok) {
+      throw new Error('Failed to fetch messages');
+    }
+    const messages = await response.json(); // Parse the JSON response
+    // Update the message box with the retrieved messages and sender details
+    const messageBox = document.getElementById('messageBox');
+    messageBox.innerHTML = ''; // Clear previous messages
+    messages.forEach(message => {
+      const messageElement = document.createElement('div');
+      messageElement.classList.add('message');
+      const senderNameElement = document.createElement('p');
+      senderNameElement.textContent = `Sender: ${message.sender.name}`; // Assuming message.sender.name contains the sender's name
+      const dateElement = document.createElement('p');
+      dateElement.textContent = `Date: ${new Date(message.createdAt).toLocaleString()}`; // Assuming message.createdAt contains the message creation date
+      const contentElement = document.createElement('p');
+      contentElement.textContent = message.content; // Assuming each message has a "content" property
+      messageElement.appendChild(senderNameElement);
+      messageElement.appendChild(dateElement);
+      messageElement.appendChild(contentElement);
+      messageBox.appendChild(messageElement);
+    });
+  } catch (error) {
+    console.error('Error fetching messages:', error);
+  }
+}
+
+// Call the fetchMessages function when the page loads
+document.addEventListener('DOMContentLoaded', fetchMessages);
+
 
   </script>
 </body>
