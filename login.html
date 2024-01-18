@@ -140,7 +140,7 @@
         <div class="login-form">
           <h2 class="mt-3">Log in</h2>
           <!-- Add your login form elements here (e.g., username and password fields) -->
-          <form method="post" action="login_process.php" id="loginForm">
+          <form method="post" action="homePageFEPMembers.html" id="loginForm">
             <!-- Add form fields here -->
             <div class="form-group">
               <label for="username">Username</label>
@@ -179,30 +179,36 @@
 
     // Add the login form JavaScript for redirection and error handling
     document.addEventListener('DOMContentLoaded', function () {
-      // Get the login form
-      const loginForm = document.getElementById('loginForm');
-      // Get the error message element
-      const errorMessage = document.getElementById('errorMessage');
+  // Get the login form
+  const loginForm = document.getElementById('loginForm');
+  // Get the error message element
+  const errorMessage = document.getElementById('errorMessage');
 
-      // Add a submit event listener to the form
-      loginForm.addEventListener('submit', function (event) {
-        // Prevent the default form submission
-        event.preventDefault();
+  // Add a submit event listener to the form
+  loginForm.addEventListener('submit', function (event) {
+    // Prevent the default form submission
+    event.preventDefault();
 
-        // Perform your login process here (e.g., AJAX request to the server)
+    // Get the username and password from the form
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
 
-        // Simulate a successful login for demonstration purposes
-        const loginSuccessful = true; // Change to true in actual implementation if login is successful
+    // Check if the username and password are for the admin
+    if (username === 'admin' && password === '1234') {
+      // Redirect to the admin page after a successful login
+      window.location.href = 'homePageAdmin.html'; 
+    }
+    else if (username === 'member' && password === '1234') {
+          // Redirect to the member page after a successful login
+          window.location.href = 'homePageFEPMembers.html';
 
-        if (loginSuccessful) {
-          // Redirect to the main page after a successful login
-          window.location.href = 'create.html'; // Update with your actual main page URL
-        } else {
-          // Display an error message for unsuccessful login
-          errorMessage.textContent = 'Incorrect username or password. Please try again.';
-        }
-      });
-    });
+    }else {
+      // Display an error message for unsuccessful login
+      errorMessage.textContent = 'Incorrect username or password. Please try again.';
+    }
+  });
+});
+
   </script>
 </body>
 </html>
