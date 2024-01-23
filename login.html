@@ -209,6 +209,32 @@
   });
 });
 
+fetch('/login', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ username, password }),
+})
+  .then((response) => response.json())
+  .then((data) => {
+    if (data.success) {
+      // Login successful, redirect to the appropriate page
+      if (username === 'admin') {
+        window.location.href = 'homePageAdmin.html';
+      } else {
+        window.location.href = 'homePageFEPMembers.html';
+      }
+    } else {
+      // Login failed, display an error message to the user
+      alert(data.message);
+    }
+  })
+  .catch((error) => {
+    // Handle network or other errors
+    console.error('Error:', error);
+  });
+
   </script>
 </body>
 </html>

@@ -3,6 +3,7 @@ const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+//const User = require('./models/User');
 
 const app = express();
 // Use the cors middleware
@@ -126,22 +127,21 @@ app.post('/signup', async (req, res) => {
 
 // Route for handling login
 app.post('/login', async (req, res) => {
+  
   const { username, password } = req.body;
 
   try {
-    // Query the database to find a user with the provided username and password
     const user = await User.findOne({ username, password }).exec();
-
     if (user) {
-      // If a user is found, redirect to the member homepage upon successful login
-      res.redirect('/homePageFEPMembers.html');
+      // User found, send a success response
+      res.json({ success: true, message: 'Login successful' });
     } else {
-      // If the credentials are invalid, render the login page again with an error message
-      res.status(401).json({ error: 'Invalid username or password' });
+      // No user found or incorrect password, send an error response
+      res.status(401).json({ success: false, message: 'Invalid username or password' });
     }
   } catch (error) {
-    // Handle any errors that occur during the database query
-    res.status(500).json({ error: 'An error occurred while processing your request' });
+    // Handle database errors
+    res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
 
